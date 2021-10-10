@@ -1,0 +1,53 @@
+<ng-container *ngIf="questions">
+  <ng-container
+    *ngFor="
+      let question of questionsFormArray.controls;
+      let questionIndex = index
+    "
+  >
+    <div class="mb-2 d-flex column" [formGroup]="getFormGroup(question)">
+      <label class="mb-2">{{ question.get("question")?.value }}</label>
+
+      <ng-container
+        *ngIf="isCheckboxList(question.get('type')?.value); else paragraph"
+      >
+        <ng-container
+          *ngFor="
+            let answer of getAnswersControls(question);
+            let answerIndex = index
+          "
+        >
+          <ng-container formArrayName="answer">
+            <ng-container [formGroupName]="answerIndex">
+              <nb-checkbox class="mb-1" formControlName="isSelected">
+                {{ answer.get("name")?.value }}
+              </nb-checkbox>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #paragraph>
+        <textarea
+          nbInput
+          fullWidth
+          placeholder="Answer"
+          formControlName="answer"
+        ></textarea>
+      </ng-template>
+    </div>
+  </ng-container>
+</ng-container>
+<div class="d-flex">
+  <ng-content></ng-content>
+
+  <button
+    *ngIf="questions"
+    class="ml-2"
+    nbButton
+    status="primary"
+    (click)="reviewAnswers()"
+  >
+    Review my answers
+  </button>
+</div>

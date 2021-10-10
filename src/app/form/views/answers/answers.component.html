@@ -1,0 +1,9 @@
+<nb-card *ngIf="answers">
+  <nb-card-body class="d-flex column">
+    <div class="d-flex column" *ngFor="let answer of answers">
+      <label class="mb-1 bold">{{ answer.question }} </label>
+
+      <label class="mb-2">{{ answer.answer }}</label>
+    </div>
+  </nb-card-body>
+</nb-card>

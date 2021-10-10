@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+.d-flex {
+  display: flex;
+
+  &.align-items-center {
+    align-items: center;
+  }
+
+  &.center {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
+}
+
+@for $i from 1 through 3 {
+  $margin: 0.5 * $i;
+
+  .mb-#{$i} {
+    margin-bottom: #{$margin}rem;
+  }
+
+  .mr-#{$i} {
+    margin-right: #{$margin}rem;
+  }
+
+  .ml-#{$i} {
+    margin-left: #{$margin}rem;
+  }
+}
+
+.bold {
+  font-weight: 600;
+}

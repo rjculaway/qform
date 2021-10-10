@@ -1,0 +1,65 @@
+<div class="d-flex column" [formGroup]="formGroup">
+  <nb-select
+    fullWidth="true"
+    placeholder="Select Type"
+    formControlName="type"
+    class="mb-2"
+  >
+    <nb-option *ngFor="let option of typeOptions" [value]="option.value">
+      {{ option.name }}
+    </nb-option>
+  </nb-select>
+
+  <input
+    fullWidth="true"
+    type="text"
+    nbInput
+    formControlName="question"
+    placeholder="Question"
+    class="mb-2"
+  />
+
+  <ng-container *ngIf="showOptions">
+    <div
+      class="d-flex column container"
+      formArrayName="options"
+      *ngIf="optionsFormArray"
+    >
+      <div
+        class="d-flex align-item-center mb-2"
+        *ngFor="
+          let option of optionsFormArray.controls;
+          let optionIndex = index
+        "
+      >
+        <input
+          class="mr-2"
+          type="text"
+          nbInput
+          [formControlName]="optionIndex"
+          placeholder="Add Answer Option"
+        />
+
+        <button nbButton status="primary" (click)="removeOption(optionIndex)">
+          <nb-icon icon="minus-outline"></nb-icon>
+        </button>
+      </div>
+    </div>
+
+    <button class="mb-2" nbButton status="basic" (click)="addOption()">
+      Add an Option
+    </button>
+    <nb-checkbox class="mb-2" formControlName="allowOtherOption"
+      >Allow 'Other' option</nb-checkbox
+    >
+  </ng-container>
+
+  <button
+    nbButton
+    status="primary"
+    [disabled]="formGroup.pristine"
+    (click)="save()"
+  >
+    Save
+  </button>
+</div>
